@@ -21,7 +21,7 @@ const app = express()
     
     var result_function = calc(weight,postal_type);
     var param={result: result_function}
-    res.render('result',param)
+    res.render('/pages/result',param)
     res.end();
   })
   /*
