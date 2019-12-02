@@ -111,8 +111,8 @@ const app = express()
     return result;
   })
   app.get('/calculate_price',(req,res)=>{
-    var result_function=calc()
+    var result_function = calc()
     var param={result: result_function}
-    res.render('/pages/result',param)
+    res.render('result',param)
     res.end()
   })
