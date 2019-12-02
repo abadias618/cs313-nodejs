@@ -13,7 +13,7 @@ const app = express()
   app.use(bodyParser.urlencoded({extended: false}))
   //POST method
   app.post('/calculate_price',(req,res)=>{
-    var weight = req.body.weight;
-    console.log('the weight you entered is '+weight);
-    res.end();
+    var weight = req.body.weight
+    console.log('the weight you entered is '+weight)
+    res.end()
   })
