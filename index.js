@@ -12,13 +12,27 @@ const app = express()
   //for body parser
   app.use(bodyParser.urlencoded({extended: false}))
   //POST method
-  app.post('/calculate_price',function calc(req,res){
-    var weight = req.body.weight
-    parseFloat(weight)
-    var postal_type = req.body.type
+  
+  app.get('/calculate_price',(req,res)=>{
+    var result_function=post_method()
+    var param={result: result_function}
+    res.render('result',param)
+    res.end()
+  })
+  function post_method(){
+    app.post('/calculate_price',(req,res)=>{
+      var weight = req.body.weight
+      weight = parseFloat(weight)
+      var postal_type = req.body.type
+      console.log('the weight you entered is '+weight)
+      console.log('the weight you entered is '+postal_type)
+      var result = calc(weight,postal_type);
+      res.end();
+      return result;
+    })
+  }
+  function calc(weight,postal_type){
     var result="$$$ "
-    console.log('the weight you entered is '+weight)
-    console.log('the weight you entered is '+postal_type)
     //switch for the type
     switch (postal_type) {
       case "letterS":
@@ -107,12 +121,5 @@ const app = express()
         result+="didn't enter any valid option"
         break;
     }
-    res.end()
     return result;
-  })
-  app.get('/calculate_price',(req,res)=>{
-    var result_function = calc()
-    var param={result: result_function}
-    res.render('result',param)
-    res.end()
-  })
+  }
