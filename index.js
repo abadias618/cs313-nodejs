@@ -12,25 +12,23 @@ const app = express()
   //for body parser
   app.use(bodyParser.urlencoded({extended: false}))
   //POST method
-  
+  var resultfinal;
+  app.post('/calculate_price',(req,res)=>{
+    var weight = req.body.weight
+    weight = parseFloat(weight)
+    var postal_type = req.body.type
+    console.log('the weight you entered is '+weight)
+    console.log('the weight you entered is '+postal_type)
+    resultfinal = calc(weight,postal_type);
+    res.end();
+  })
   app.get('/calculate_price',(req,res)=>{
-    var result_function=post_method()
+    var result_function = resultfinal
     var param={result: result_function}
     res.render('result',param)
     res.end()
   })
-  function post_method(){
-    app.post('/calculate_price',(req,res)=>{
-      var weight = req.body.weight
-      weight = parseFloat(weight)
-      var postal_type = req.body.type
-      console.log('the weight you entered is '+weight)
-      console.log('the weight you entered is '+postal_type)
-      var result = calc(weight,postal_type);
-      res.end();
-      return result;
-    })
-  }
+  
   function calc(weight,postal_type){
     var result="$$$ "
     //switch for the type
