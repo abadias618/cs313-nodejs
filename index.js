@@ -14,13 +14,13 @@ const app = express()
   //POST method
   app.post('/calculate_price',(req,res)=>{
     var weight = req.body.weight
-    weight = parseFloat(weight)
+    var float_weight = parseFloat(weight)
     var postal_type = req.body.type
     console.log('the weight you entered is '+weight)
     console.log('the weight you entered is '+postal_type)
     
-    var result_function = calc(weight,postal_type);
-    var param={result: result_function}
+    var result_function = calc(float_weight,postal_type);
+    var param={result: result_function, type: postal_type, weight: weight}
     res.render('./result',param)
     res.end();
   })
@@ -38,7 +38,7 @@ const app = express()
     switch (postal_type) {
       case "letterS":
         //switch for the weight
-        switch (weight) {
+        switch (true) {
           case weight<=1:
             result+="0.55"
             break;
@@ -55,7 +55,7 @@ const app = express()
         break;
       case "letterM":
         //switch for the weight
-        switch (weight) {
+        switch (true) {
           case weight<=1:
             result+="0.50"
             break;
@@ -72,7 +72,7 @@ const app = express()
         break;
       case "letterE":
         //switch for the weight
-        switch (weight) {
+        switch (true) {
           case weight<=1:
             result+="1.00"
             break;
